@@ -1,0 +1,12 @@
+<% if @vehicle %>
+  <h1 class="yes">Yes</h1>
+  <% if @relocated %>
+    <p><strong><%= @vehicle.plate %></strong> was <strong>relocated</strong> from <strong><%= "#{@vehicle.relocated_from_address_number} #{@vehicle.relocated_from_street_direction} #{@vehicle.relocated_from_street_name}" %></strong> to <strong><%= "#{@vehicle.relocated_to_address_number} #{@vehicle.relocated_to_direction} #{@vehicle.relocated_to_street_name}" %></strong> on <strong><%= Chronic.parse(@vehicle.relocated_date).strftime('%B %-d') %></strong> because <strong><%= @vehicle.relocated_reason %></strong>.</p>
+  <% else %>
+    <p><strong><%= @vehicle.plate %></strong> was towed to <strong><%= @vehicle.towed_to_address %></strong> on <strong><%= Chronic.parse(@vehicle.tow_date).strftime('%B %-d') %></strong>. Please call <strong><%= @vehicle.tow_facility_phone %></strong> for retrieval instructions.</p>
+  <% end %>
+<% else %>
+  <h1 class="no">No</h1>
+  <p><strong><%= @plate_number %></strong> was not found in the city's database. If you need further assistance, please call <strong>311</strong>.</p>
+<% end %>
+<p><a href="/">Search Again</a></p>

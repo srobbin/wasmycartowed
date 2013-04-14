@@ -1,0 +1,3 @@
+# Register for your app token on the City of Chicago's data portal
+# https://data.cityofchicago.org/
+app_token: your-socrata-app-token-goes-here
