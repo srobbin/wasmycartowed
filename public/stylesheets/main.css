@@ -50,6 +50,9 @@ body {
   color: #333;
   text-align: center;
   line-height: 1.2em;
+  padding: 0 20px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
 }
 
 a { color: #1abc9c; text-decoration: none; }
@@ -93,7 +96,7 @@ section {
   font-size: 24px;
   line-height: 1.3em;
   margin: 0 auto;
-  padding: 80px 20px;
+  padding-top: 80px;
 }
 
   section .yes { color: #0F0; }
@@ -134,4 +137,19 @@ form button {
 }
 form button:hover {
   background-color: #148f77;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .wrapper { 
+    height: auto;
+    min-height: 0;
+    margin-bottom: 0;
+  }
+  .wrapper, .push, footer { height: auto; }
+  footer { padding-bottom: 10px; }
+
+  section {
+    padding-top: 20px;
+  }
 }
