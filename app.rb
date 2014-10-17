@@ -25,7 +25,7 @@ class WasMyCarTowed < Sinatra::Base
   # Search
   post '/' do
     @vehicle = nil
-    @plate_number = params[:plate].gsub(/\s+/, "")
+    @plate_number = params[:plate].gsub(/\s+/, "").upcase
     
     # Sanity check
     if @plate_number.empty?
