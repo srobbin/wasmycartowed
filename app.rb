@@ -1,6 +1,6 @@
 require 'sinatra/base'
 require "sinatra/config_file"
-require 'windy'
+require 'soda'
 require 'chronic'
 
 class WasMyCarTowed < Sinatra::Base
@@ -13,9 +13,10 @@ class WasMyCarTowed < Sinatra::Base
   set :towed_view_id, 'ygr5-vcbg'
   set :relocated_view_id, '5k2z-suxx'
 
-  # Add the app_token to Windy
-  # either from Heroku's environment variables of the config file
-  Windy.app_token = ENV['APP_TOKEN'] || settings.app_token
+  # Initialize the soda client
+  # App token comes either from Heroku's environment variables of the config file
+  app_token = ENV['APP_TOKEN'] || settings.app_token
+  client = SODA::Client.new domain: "data.cityofchicago.org", app_token: app_token
 
   # Index
   get '/' do
@@ -33,16 +34,12 @@ class WasMyCarTowed < Sinatra::Base
     end
 
     # See if the vehicle was towed
-    towed_view = Windy.views.find_by_id(settings.towed_view_id)
-    towed_vehicles = towed_view.rows
-    @vehicle = towed_vehicles.find_by_plate(@plate_number)
+    @vehicle = client.get(settings.towed_view_id, {'$limit' => 1, plate: @plate_number}).first
 
     # If it wasn't towed, see if it was relocated
     if not @vehicle
       @relocated = true
-      relocated_view = Windy.views.find_by_id(settings.relocated_view_id)
-      relocated_vehicles = relocated_view.rows
-      @vehicle = relocated_vehicles.find_by_plate(@plate_number)
+      @vehicle = client.get(settings.relocated_view_id, {'$limit' => 1, plate: @plate_number}).first
     end
 
     erb :results
