@@ -27,7 +27,7 @@
   <script src="/javascripts/app.js"></script>
   <script>
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '<%= "#{ENV["GOOGLE_ANALYTICS"] || settings.google_analytics}" %>']);
+    _gaq.push(['_setAccount', '<%= ENV['GOOGLE_ANALYTICS'] %>']);
     _gaq.push(['_trackPageview']);
    
     (function() {

@@ -4,18 +4,13 @@ require 'soda'
 require 'chronic'
 
 class WasMyCarTowed < Sinatra::Base
-  # Config file
-  register Sinatra::ConfigFile
-  config_file 'config.yml'
-
   # The view ids of the towed and relocated datasets
   # http://data.cityofchicago.org/
   set :towed_view_id, 'ygr5-vcbg'
   set :relocated_view_id, '5k2z-suxx'
 
   # Initialize the soda client
-  # App token comes either from Heroku's environment variables of the config file
-  app_token = ENV['APP_TOKEN'] || settings.app_token
+  app_token = ENV['APP_TOKEN']
   client = SODA::Client.new domain: "data.cityofchicago.org", app_token: app_token
 
   # Index
