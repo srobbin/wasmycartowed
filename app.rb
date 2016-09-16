@@ -11,7 +11,7 @@ class WasMyCarTowed < Sinatra::Base
 
   # Initialize the soda client
   app_token = ENV['APP_TOKEN']
-  client = SODA::Client.new domain: "data.cityofchicago.org", app_token: app_token
+  client = SODA::Client.new domain: "data.cityofchicago.org", app_token: app_token, ignore_ssl: true
 
   # Index
   get '/' do
